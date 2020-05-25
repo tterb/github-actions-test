@@ -27,20 +27,20 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically generated
         NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Set this in repo-settings
 
-	gpr-publish:
-		name: gpr-publish
-		runs-on: ubuntu-latest
-		steps:
-			- name: Checkout repository
-			  uses: actions/checkout@v2
-			- name: Set up Node.js
-			  uses: actions/setup-node@v1
-				with:
-					node-version: 12
-					registry-url: https://npm.pkg.github.com/
-			- run: npm ci
-			- run: npm run build
-			- run: cd lib
-			- run: npm publish
-				env:
-					NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  gpr-publish:
+    name: gpr-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm run build
+      - run: cd lib
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
