@@ -1,0 +1,46 @@
+# Creates a new `vX.X.X` tag and publishes the package to NPM when a change to the package.json version is detected on the master branch with a commit message matching `Release vX.X.X`
+
+name: npm-publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+    - name: Set up Node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: 12
+        registry-url: https://registry.npmjs.org/
+    - name: Publish if version has been updated
+      uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
+      with: # Theses inputs are optional
+        tag_name: "v%s"
+        tag_message: "v%s"
+        commit_pattern: "Release v(\\S+)"
+      env: # More info about the environment variables in the README
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically generated
+				NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # Set this in repo-settings
+
+	gpr-publish:
+		name: gpr-publish
+		runs-on: ubuntu-latest
+		steps:
+			- name: Checkout repository
+			  uses: actions/checkout@v2
+			- name: Set up Node.js
+			  uses: actions/setup-node@v1
+				with:
+					node-version: 12
+					registry-url: https://npm.pkg.github.com/
+			- run: npm ci
+			- run: npm run build
+			- run: cd lib
+			- run: npm publish
+				env:
+					NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
