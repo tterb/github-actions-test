@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   npm-publish:
     name: npm-publish
@@ -18,8 +19,9 @@ jobs:
         node-version: 12
         registry-url: https://registry.npmjs.org/
     - name: Publish if version has been updated
-      uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
-      with: # Theses inputs are optional
+      uses: tterb/npm-publish-action@v1
+      with: # Inputs
+        pre-publish: "yarn pre-publish"
         tag_name: "v%s"
         tag_message: "v%s"
         commit_pattern: "Release v(\\S+)"
@@ -27,26 +29,23 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically generated
         NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Set this in repo-settings
 
-  gpr-publish:
-    name: gpr-publish
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-      - name: Publish if version has been updated
-        uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
-        with: # Theses inputs are optional
-          tag_name: "v%s"
-          tag_message: "v%s"
-          commit_pattern: "Release v(\\S+)"
-      - run: npm ci
-      - run: npm run build
-      - run: cd lib
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  # gpr-publish:
+  #   needs: npm-publish
+  #   name: gpr-publish
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #         registry-url: https://npm.pkg.github.com/
+  #     - name: Publish if version has been updated
+  #       uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
+  #       with: # Theses inputs are optional
+  #         tag_name: "v%s"
+  #         tag_message: "v%s"
+  #         commit_pattern: "Release v(\\S+)"
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
