@@ -19,7 +19,7 @@ jobs:
         node-version: 12
         registry-url: https://registry.npmjs.org/
     - name: Publish if version has been updated
-      uses: tterb/npm-publish-action@v1
+      uses: tterb/npm-publish-action@master
       with: # Inputs
         pre-publish: "yarn pre-publish"
         tag_name: "v%s"
