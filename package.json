@@ -1,10 +1,10 @@
 {
-  "name": "@tterb/test-package",
+  "name": "tterb-test-package",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "yarn clean && mkdir lib && cp src/index.js lib",
+    "build": "yarn clean && mkdir lib || true && cp README.md package.json src/index.js lib",
     "pre-publish": "yarn build && cd lib",
     "clean": "rm -r lib",
     "test": "echo \"Error: no test specified\""
