@@ -22,6 +22,7 @@ jobs:
       uses: tterb/npm-publish-action@master
       with: # Inputs
         pre-publish: "yarn pre-publish"
+        publish-dir: "lib"
         tag_name: "v%s"
         tag_message: "v%s"
         commit_pattern: "Release v(\\S+)"
