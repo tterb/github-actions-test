@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "yarn clean && mkdir lib && cp src/index.js lib",
+    "pre-publish": "yarn build && cd lib",
     "clean": "rm -r lib",
     "test": "echo \"Error: no test specified\""
   },
