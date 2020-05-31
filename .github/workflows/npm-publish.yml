@@ -23,6 +23,7 @@ jobs:
       with: # Inputs
         pre-publish: "yarn pre-publish"
         publish-dir: "lib"
+        create_tag: true
         tag_name: "v%s"
         tag_message: "v%s"
         commit_pattern: "Release v(\\S+)"
@@ -46,6 +47,7 @@ jobs:
       with: # Inputs
         pre-publish: "yarn pre-publish"
         publish-dir: "lib"
+        create_tag: false
         tag_name: "v%s"
         tag_message: "v%s"
         commit_pattern: "Release v(\\S+)"
