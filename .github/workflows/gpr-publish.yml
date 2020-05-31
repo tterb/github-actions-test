@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-      - run: npm shrinkwrap
-      - run: npm ci
-      - run: npm run pre-publish
-      - run: npm publish lib --non-interactive
+      - run: npm install -g yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn pre-publish
+      - run: yarn publish lib --non-interactive
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
