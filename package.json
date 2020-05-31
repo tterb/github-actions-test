@@ -6,7 +6,7 @@
   "scripts": {
     "build": "yarn clean && mkdir lib || true && cp README.md package.json src/index.js lib",
     "pre-publish": "yarn build && cd lib",
-    "clean": "rm -r lib",
+    "clean": "rm -rf lib",
     "test": "echo \"Error: no test specified\""
   },
   "repository": {
